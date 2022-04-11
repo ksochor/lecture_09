@@ -31,14 +31,39 @@ def linear_search(unordered_numbers, searched_number):
     output["count"] = count
     return output
 
+def patter_search(sequence, hledany_vzor):
+    positions = []
+    for index in range(len(sequence) - len(hledany_vzor) + 1):
+        subsequence = sequence[index:(index + len(hledany_vzor))]
+        same = True
+        for letter_subsequence, letter_hledany_vzor in zip(subsequence, hledany_vzor):
+            if letter_subsequence != letter_hledany_vzor:
+                same = False
+                break
+        if same:
+            positions.append(index)
+
+    return positions
+
+
+def binary_search(seznam_cisel, hledane_cislo):
+
 
 
 
 def main():
     unordered_numbers = read_data("sequential.json", "unordered_numbers")
+    dna_sequence = read_data("sequential.json", "dna_sequence")
+    ordered_numbers = read_data("sequential.json", "ordered_numbers")
 
-    search_output_dict = linear_search(unordered_numbers, 1)
+    search_output_dict = linear_search(unordered_numbers, 0)
     print(search_output_dict)
+
+    search_output_mnoz = patter_search(dna_sequence, "ATA")
+    print(search_output_mnoz)
+
+    #search_output_number = binary_search(ordered_numbers, )
+    #print(search_output_number)
 
 if __name__ == '__main__':
     main()
